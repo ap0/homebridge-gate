@@ -61,6 +61,13 @@ class GateAccessory {
       .getCharacteristic(Characteristic.ObstructionDetected)
       .onGet(() => false);
 
+    this.doorbellService = new Service.Doorbell(this.name + ' Bell');
+    this.doorbellService
+      .getCharacteristic(Characteristic.ProgrammableSwitchEvent)
+      .setProps({
+        validValues: [Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS]
+      });
+
     // Register with Homebridge's web server if available
     this.setupWebHandler();
 
@@ -68,7 +75,7 @@ class GateAccessory {
   }
 
   getServices() {
-    return [this.informationService, this.lockService, this.doorService];
+    return [this.informationService, this.lockService, this.doorService, this.doorbellService];
   }
 
   // Setup web handler using standalone server
@@ -192,6 +199,11 @@ class GateAccessory {
         this.lockService.updateCharacteristic(Characteristic.LockTargetState, this.lockTargetState);
         this.log.info('Lock state updated to:', status.lockState);
       }
+    }
+
+    // Handle doorbell event
+    if (status.doorbell === true) {
+      this.triggerDoorbell();
     }
   }
 
@@ -317,5 +329,13 @@ class GateAccessory {
     // Handle open command
     this.targetDoorState = value;
     await this.sendCommandToDevice('open');
+  }
+
+  triggerDoorbell() {
+    this.log.info('Doorbell triggered - access attempt when locked');
+    this.doorbellService.updateCharacteristic(
+      Characteristic.ProgrammableSwitchEvent, 
+      Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS
+    );
   }
 }
