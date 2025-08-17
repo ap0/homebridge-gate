@@ -1,0 +1,27 @@
+{
+  "pluginAlias": "Gate",
+  "pluginType": "accessory",
+  "singular": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "required": true,
+        "default": "Gate"
+      },
+      "httpPort": {
+        "title": "HTTP Server Port",
+        "type": "integer",
+        "default": 8080,
+        "description": "Port for receiving status updates from the gate device"
+      },
+      "deviceApiUrl": {
+        "title": "Device API URL",
+        "type": "string",
+        "description": "Base URL for sending commands to the gate device (optional)"
+      }
+    }
+  }
+}

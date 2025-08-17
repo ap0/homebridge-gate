@@ -1,0 +1,27 @@
+{
+  "name": "homebridge-gate",
+  "version": "1.0.0",
+  "description": "A Homebridge plugin for simulating a gate with lock/unlock and open/close functionality",
+  "main": "index.js",
+  "keywords": [
+    "homebridge-plugin",
+    "homebridge",
+    "gate",
+    "lock",
+    "door"
+  ],
+  "engines": {
+    "node": ">=14.18.1",
+    "homebridge": ">=1.6.0"
+  },
+  "author": "ap0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ap0/homebridge-gate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ap0/homebridge-gate/issues"
+  },
+  "homepage": "https://github.com/ap0/homebridge-gate#readme"
+}
